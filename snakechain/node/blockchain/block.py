@@ -72,6 +72,6 @@ class Block:
         return (
             f'Number: {self._header.number} '
             f'Previous hash: {self._header.previous_hash} '
-            f'Body: {self.body} '
+            f'Body: {self._body} '
             f'Hash: {self.hash()}'
         )
