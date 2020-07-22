@@ -1,4 +1,7 @@
-from .block import Block
+from blockchain.block import Block
+
+
+SPACER = '------*------*------*------*------*------'
 
 
 class Blockchain:
@@ -17,24 +20,61 @@ class Blockchain:
             previous_hash=self.previous_block_hash,
         )
         self.blocks.append(new_block)
-        self.previous_block_hash = new_block.hash()
+
+        self.previous_block_hash = new_block.hash
         self.next_block_number += 1
         return new_block
 
     def start_node(self):
         print('Starting blockchain node', flush=True)
+        print(SPACER, flush=True)
 
+        # 1st block
         self._append_element(element='one')
-        self._append_element(element='two')
-        first = self._create_block()
+        first_block = self._create_block()
+        first_json = first_block.to_json()
 
+        print(
+            f'First block: {first_block}',
+            flush=True,
+        )
+        print(
+            f'First JSON: {first_json}',
+            flush=True,
+        )
+        print(SPACER, flush=True)
+
+        # 2nd block
+        self._append_element(element='two')
         self._append_element(element='three')
         self._append_element(element='four')
-        second = self._create_block()
+        second_block = self._create_block()
+        second_json = second_block.to_json()
 
-        print(first, flush=True)
-        print(second, flush=True)
-        print('Debug')
+        print(
+            f'Second block: {second_block}',
+            flush=True,
+        )
+        print(
+            f'Second JSON: {second_json}',
+            flush=True,
+        )
+        print(SPACER, flush=True)
 
+        # 2nd block copy from 2nd block JSON
+        copy_block = Block.from_json(second_json)
+        copy_json = copy_block.to_json()
+
+        print(
+            f'Copy block: {copy_block}',
+            flush=True,
+        )
+        print(
+            f'Copy JSON: {copy_json}',
+            flush=True,
+        )
+        print(SPACER, flush=True)
+
+        print('Listening for new blocks', flush=True)
         while True:
             continue

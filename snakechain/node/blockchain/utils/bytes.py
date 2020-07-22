@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .. import Block
+    from ..block import Block
 
 
 DEFAULT_ENCODING = 'utf-8'
