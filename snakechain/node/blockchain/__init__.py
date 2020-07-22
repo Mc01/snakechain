@@ -1,7 +1,6 @@
 from blockchain.block import Block
-
-
-SPACER = '------*------*------*------*------*------'
+from blockchain.config import SPACER
+from blockchain.utils import write_block
 
 
 class Blockchain:
@@ -33,6 +32,7 @@ class Blockchain:
         self._append_element(element='one')
         first_block = self._create_block()
         first_json = first_block.to_json()
+        write_block(first_block, truncate=True)
 
         print(
             f'First block: {first_block}',
@@ -50,6 +50,7 @@ class Blockchain:
         self._append_element(element='four')
         second_block = self._create_block()
         second_json = second_block.to_json()
+        write_block(second_block)
 
         print(
             f'Second block: {second_block}',
@@ -64,6 +65,7 @@ class Blockchain:
         # 2nd block copy from 2nd block JSON
         copy_block = Block.from_json(second_json)
         copy_json = copy_block.to_json()
+        write_block(copy_block)
 
         print(
             f'Copy block: {copy_block}',
