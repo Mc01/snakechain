@@ -1,6 +1,6 @@
 import typer
 
-from blockchain import Blockchain
+from blockchain import Blockchain, Block
 
 
 app = typer.Typer()
@@ -12,13 +12,15 @@ def start_node():
 
 
 @app.command()
-def add_element():
-    typer.echo('Adding element to blockchain')
+def add_element(element: str):
+    Blockchain().append_element(element)
+    typer.echo(f'Added element to buffer: {element}')
 
 
 @app.command()
 def create_block():
-    typer.echo('Creating block from buffer')
+    new_block: Block = Blockchain().create_block()
+    typer.echo(f'Created block from buffer: {new_block.header.number}')
 
 
 if __name__ == '__main__':

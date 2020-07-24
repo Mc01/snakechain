@@ -36,7 +36,7 @@ class Blockchain:
                     latest_block=existing_block,
                 )
 
-    def _append_element(self, element: str):
+    def append_element(self, element: str):
         self.buffer.add_body_element(
             block_number=self.next_block_number,
             body_element=element,
@@ -48,7 +48,7 @@ class Blockchain:
             self.buffer.remove_body(oldest_block_number)
             self.blocks.pop(0)
 
-    def _create_block(self) -> Block:
+    def create_block(self) -> Block:
         new_block = Block(
             number=self.next_block_number,
             previous_hash=self.previous_block_hash,
@@ -69,8 +69,8 @@ class Blockchain:
         print(SPACER, flush=True)
 
         # 1st block
-        self._append_element(element='one')
-        first_block = self._create_block()
+        self.append_element(element='one')
+        first_block = self.create_block()
         first_json = first_block.to_json()
 
         print(
@@ -84,10 +84,10 @@ class Blockchain:
         print(SPACER, flush=True)
 
         # 2nd block
-        self._append_element(element='two')
-        self._append_element(element='three')
-        self._append_element(element='four')
-        second_block = self._create_block()
+        self.append_element(element='two')
+        self.append_element(element='three')
+        self.append_element(element='four')
+        second_block = self.create_block()
         second_json = second_block.to_json()
 
         print(

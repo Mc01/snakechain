@@ -11,14 +11,11 @@ if TYPE_CHECKING:
 
 class Storage:
     @staticmethod
-    def save_block_to_storage(block: Block, truncate=False):
+    def save_block_to_storage(block: Block):
         """
         Saves to file during new block creation
         """
-        if truncate:
-            mode = 'w+'
-        else:
-            mode = 'a+'
+        mode = 'a+'
         with open(BLOCKCHAIN_STORAGE_FILE, mode) as f:
             f.write(f'{block.to_json()}{os.linesep}')
 
