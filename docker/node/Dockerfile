@@ -4,7 +4,7 @@ RUN pip install poetry
 
 WORKDIR /app
 
-COPY snakechain/node/pyproject.toml ./pyproject.toml
+COPY snakechain/pyproject.toml ./pyproject.toml
 
 RUN poetry config virtualenvs.create false
 

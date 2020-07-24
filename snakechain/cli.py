@@ -1,6 +1,6 @@
 import typer
 
-from blockchain import Blockchain, Block
+from snakechain.blockchain import Blockchain, Block
 
 
 app = typer.Typer()
@@ -21,6 +21,21 @@ def add_element(element: str):
 def create_block():
     new_block: Block = Blockchain().create_block()
     typer.echo(f'Created block from buffer: {new_block.header.number}')
+
+
+@app.command()
+def get_block(number: int):
+    pass
+
+
+@app.command()
+def get_element(number: int):
+    pass
+
+
+@app.command()
+def get_statistics():
+    pass
 
 
 if __name__ == '__main__':

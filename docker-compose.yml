@@ -11,23 +11,13 @@ services:
       - ./docker/node/entrypoint.sh:/entrypoint.sh
     command: /./entrypoint.sh
     environment:
-      - REDIS_HOST=redis
+      - CACHE_HOST=redis-cache
+      - STORAGE_HOST=redis-storage
       - REDIS_PORT=6379
     depends_on:
-      - redis
+      - redis-cache
+      - redis-storage
 
-  redis:
-    container_name: snakechain_redis
+  redis-cache:
+    container_name: snakechain_redis_cache
     image: redis
-
-  rest:
-    container_name: snakechain_rest
-    build:
-      context: .
-      dockerfile: ./docker/rest/Dockerfile
-    volumes:
-      - ./snakechain/rest:/app
-      - ./docker/rest/entrypoint.sh:/entrypoint.sh
-    command: /./entrypoint.sh
-    ports:
-      - "8000:8000"
