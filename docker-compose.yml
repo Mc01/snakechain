@@ -9,6 +9,14 @@ services:
       - ./snakechain/node:/app
       - ./docker/node/entrypoint.sh:/entrypoint.sh
     command: /./entrypoint.sh
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
 
   rest:
     build:

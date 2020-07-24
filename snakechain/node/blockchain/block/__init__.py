@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from .body import Body
 from .header import Header
@@ -6,30 +7,18 @@ from ..utils import sha256, block_bytes
 
 
 class Block:
-    buffer = []
-
     def __init__(
             self,
             number: int,
             previous_hash: str,
-            data: tuple = None,
+            data: List[str] = None,
     ):
         self._header: Header = Header(
             number=number,
             previous_hash=previous_hash,
         )
-        if data:
-            self._body: Body = Body(data=tuple(data))
-        else:
-            self._body: Body = Body(
-                data=tuple(Block.buffer.copy()),
-            )
+        self._body: Body = Body(data=tuple(data))
         self._hash: str = ''
-        Block.buffer = []
-
-    @classmethod
-    def append(cls, element: str):
-        cls.buffer.append(element)
 
     @property
     def header(self) -> Header:

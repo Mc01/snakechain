@@ -1,27 +1,67 @@
+from typing import List, Optional
+
 from blockchain.block import Block
-from blockchain.config import SPACER
-from blockchain.utils import write_block
+from blockchain.buffer import Buffer
+from blockchain.config import SPACER, NUMBER_OF_BLOCKS_IN_MEMORY
+from blockchain.integrity import IntegrityCheck
+from blockchain.storage import Storage
 
 
 class Blockchain:
     def __init__(self):
-        self.blocks = []
-        self.previous_block_hash = '0x0'
-        self.next_block_number = 1
+        self._integrity_check()
+        self.buffer: Buffer = Buffer()
+
+        last_block: Block = Storage.get_last_block_from_storage()
+        if last_block:
+            self.blocks: List[Block] = [last_block]
+            self.previous_block_hash = last_block.hash
+            self.next_block_number = last_block.header.number + 1
+        else:
+            self.blocks: List[Block] = []
+            self.previous_block_hash = '0x0'
+            self.next_block_number = 1
 
     @staticmethod
-    def _append_element(element: str):
-        Block.append(element)
+    def _integrity_check():
+        integrity_check: Optional[IntegrityCheck] = None
+
+        for existing_block in Storage.yield_blocks_from_storage():
+            if not integrity_check:
+                integrity_check = IntegrityCheck(
+                    genesis_block=existing_block,
+                )
+            else:
+                integrity_check.validate_block(
+                    latest_block=existing_block,
+                )
+
+    def _append_element(self, element: str):
+        self.buffer.add_body_element(
+            block_number=self.next_block_number,
+            body_element=element,
+        )
+
+    def _restrict_memory(self):
+        if len(self.blocks) > NUMBER_OF_BLOCKS_IN_MEMORY:
+            oldest_block_number: int = self.blocks[0].header.number
+            self.buffer.remove_body(oldest_block_number)
+            self.blocks.pop(0)
 
     def _create_block(self) -> Block:
         new_block = Block(
             number=self.next_block_number,
             previous_hash=self.previous_block_hash,
+            data=self.buffer.get_body(self.next_block_number),
         )
         self.blocks.append(new_block)
+        Storage.save_block_to_storage(block=new_block)
 
         self.previous_block_hash = new_block.hash
         self.next_block_number += 1
+
+        self._restrict_memory()
+
         return new_block
 
     def start_node(self):
@@ -32,7 +72,6 @@ class Blockchain:
         self._append_element(element='one')
         first_block = self._create_block()
         first_json = first_block.to_json()
-        write_block(first_block, truncate=True)
 
         print(
             f'First block: {first_block}',
@@ -50,7 +89,6 @@ class Blockchain:
         self._append_element(element='four')
         second_block = self._create_block()
         second_json = second_block.to_json()
-        write_block(second_block)
 
         print(
             f'Second block: {second_block}',
@@ -65,7 +103,6 @@ class Blockchain:
         # 2nd block copy from 2nd block JSON
         copy_block = Block.from_json(second_json)
         copy_json = copy_block.to_json()
-        write_block(copy_block)
 
         print(
             f'Copy block: {copy_block}',

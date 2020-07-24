@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
-python node.py
+python cli.py add-element
+python cli.py create-block
+python cli.py start-node
