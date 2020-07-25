@@ -15,11 +15,11 @@ docker-compose exec node ./cli.py $command
 ```
 
 > Note: Where `$command` is one of following:
-> - add_element
-> - create_block
-> - get_block
-> - get_element
-> - get_statistics
+> - add-element
+> - create-block
+> - get-block
+> - get-element
+> - get-statistics
 
 ## Design
 
