@@ -1,10 +1,10 @@
 from typing import List, Optional
 
-from snakechain.blockchain.block import Block
-from snakechain.blockchain.buffer import Buffer
-from snakechain.blockchain.config import SPACER, NUMBER_OF_BLOCKS_IN_MEMORY
-from snakechain.blockchain.integrity import IntegrityCheck
-from snakechain.blockchain.storage import Storage
+from .block import Block
+from .buffer import Buffer
+from .config import SPACER, NUMBER_OF_BLOCKS_IN_MEMORY
+from .integrity import IntegrityCheck
+from .storage import Storage
 
 
 class Blockchain:

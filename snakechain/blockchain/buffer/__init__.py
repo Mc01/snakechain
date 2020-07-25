@@ -3,7 +3,7 @@ from typing import Optional, List
 
 from redis import Redis
 
-from snakechain.blockchain.config import REDIS_HOST, REDIS_PORT
+from ..config import REDIS_HOST, REDIS_PORT
 
 
 class Buffer:

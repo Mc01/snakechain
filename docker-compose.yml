@@ -7,17 +7,21 @@ services:
       context: .
       dockerfile: ./docker/node/Dockerfile
     volumes:
-      - ./snakechain/node:/app
+      - ./snakechain:/app
       - ./docker/node/entrypoint.sh:/entrypoint.sh
     command: /./entrypoint.sh
     environment:
-      - CACHE_HOST=redis-cache
-      - STORAGE_HOST=redis-storage
+      - REDIS_HOST=cache
       - REDIS_PORT=6379
+      - STORAGE_HOST=db
     depends_on:
-      - redis-cache
-      - redis-storage
+      - db
+      - cache
 
-  redis-cache:
-    container_name: snakechain_redis_cache
+  db:
+    container_name: snakechain_db
+    image: couchbase
+
+  cache:
+    container_name: snakechain_cache
     image: redis

@@ -1,6 +1,6 @@
 import typer
 
-from snakechain.blockchain import Blockchain, Block
+from blockchain import Blockchain, Block
 
 
 app = typer.Typer()

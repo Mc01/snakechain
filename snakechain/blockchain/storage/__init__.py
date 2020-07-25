@@ -24,8 +24,9 @@ class Storage:
         """
         Reads latest block from file during blockchain init
         """
+        from ..block import Block
         try:
-            with open(BLOCKCHAIN_STORAGE_FILE, 'rb') as f:
+            with open(BLOCKCHAIN_STORAGE_FILE, 'rb+') as f:
                 f.seek(-2, os.SEEK_END)
                 while f.read(1) != b'\n':
                     f.seek(-2, os.SEEK_CUR)
@@ -40,6 +41,7 @@ class Storage:
         Reads blocks from file memory efficiently
         Performed during blockchain integrity check
         """
-        with open(BLOCKCHAIN_STORAGE_FILE, 'r') as f:
+        from ..block import Block
+        with open(BLOCKCHAIN_STORAGE_FILE, 'r+') as f:
             for line in f:
                 yield Block.from_json(data=line)
