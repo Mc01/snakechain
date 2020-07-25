@@ -21,6 +21,17 @@ docker-compose exec node ./cli.py $command
 > - get-element
 > - get-statistics
 
+## Environment
+
+Following environment variables are mandatory:
+- `REDIS_HOST`
+- `REDIS_PORT`
+
+Following environment variables are optional and have defaults:
+- `NUMBER_OF_BLOCKS_IN_MEMORY` (default value: `10`)
+- `BLOCKCHAIN_STORAGE_FILE` (default value: `storage/ledger.json`)
+- `SPACER` (default value: `------*------*------*------*------*------`)
+
 ## Design
 
 ### CLI
