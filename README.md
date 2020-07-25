@@ -23,13 +23,15 @@ docker-compose exec node ./cli.py $command
 
 ## Environment
 
-Following environment variables are mandatory:
+Following environment variables are mandatory (defined in `docker-compose.yml`):
 - `REDIS_HOST`
 - `REDIS_PORT`
+- `STORAGE_HOST`
+- `STORAGE_USER`
+- `STORAGE_PASSWORD`
 
 Following environment variables are optional and have defaults:
 - `NUMBER_OF_BLOCKS_IN_MEMORY` (default value: `10`)
-- `BLOCKCHAIN_STORAGE_FILE` (default value: `storage/ledger.json`)
 - `SPACER` (default value: `------*------*------*------*------*------`)
 
 ## Design

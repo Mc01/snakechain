@@ -9,10 +9,11 @@ from .storage import Storage
 
 class Blockchain:
     def __init__(self):
-        self._integrity_check()
         self.buffer: Buffer = Buffer()
+        self.storage: Storage = Storage()
+        self._integrity_check()
 
-        last_block: Block = Storage.get_last_block_from_storage()
+        last_block: Block = self.storage.get_last_block_from_storage()
         if last_block:
             self.blocks: List[Block] = [last_block]
             self.previous_block_hash = last_block.hash
@@ -22,11 +23,10 @@ class Blockchain:
             self.previous_block_hash = '0x0'
             self.next_block_number = 1
 
-    @staticmethod
-    def _integrity_check():
+    def _integrity_check(self):
         integrity_check: Optional[IntegrityCheck] = None
 
-        for existing_block in Storage.yield_blocks_from_storage():
+        for existing_block in self.storage.yield_blocks_from_storage():
             if not integrity_check:
                 integrity_check = IntegrityCheck(
                     genesis_block=existing_block,
@@ -55,7 +55,7 @@ class Blockchain:
             data=self.buffer.get_body(self.next_block_number),
         )
         self.blocks.append(new_block)
-        Storage.save_block_to_storage(block=new_block)
+        self.storage.save_block_to_storage(block=new_block)
 
         self.previous_block_hash = new_block.hash
         self.next_block_number += 1

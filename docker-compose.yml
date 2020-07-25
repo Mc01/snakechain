@@ -5,14 +5,17 @@ services:
     container_name: snakechain_node
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/node/Dockerfile
     volumes:
       - ./snakechain:/app
-      - ./docker/entrypoint.sh:/entrypoint.sh
+      - ./docker/node/entrypoint.sh:/entrypoint.sh
     command: /./entrypoint.sh
     environment:
       - BUFFER_HOST=buffer
       - BUFFER_PORT=6379
+      - STORAGE_HOST=storage
+      - STORAGE_USER=storage
+      - STORAGE_PASSWORD=password
     depends_on:
       - buffer
       - storage
@@ -23,4 +26,12 @@ services:
 
   storage:
     container_name: snakechain_storage
-    image: couchbase
+    image: couchbase:community
+    volumes:
+    - ./docker/storage/configure.sh:/configure.sh
+    command: /./configure.sh
+    environment:
+      - STORAGE_USER=storage
+      - STORAGE_PASSWORD=password
+    ports:
+      - 8091:8091
