@@ -3,14 +3,14 @@ from typing import Optional, List
 
 from redis import Redis
 
-from ..config import REDIS_HOST, REDIS_PORT
+from ..config import BUFFER_HOST, BUFFER_PORT
 
 
 class Buffer:
     def __init__(self):
         self.redis = Redis(
-            host=REDIS_HOST,
-            port=REDIS_PORT,
+            host=BUFFER_HOST,
+            port=BUFFER_PORT,
         )
 
     @staticmethod

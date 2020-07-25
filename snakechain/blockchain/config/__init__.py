@@ -1,8 +1,8 @@
 import os
 
 # redis for buffer
-REDIS_HOST = os.environ.get('REDIS_HOST')
-REDIS_PORT = os.environ.get('REDIS_PORT')
+BUFFER_HOST = os.environ.get('BUFFER_HOST')
+BUFFER_PORT = os.environ.get('BUFFER_PORT')
 
 # blockchain memory capacity
 NUMBER_OF_BLOCKS_IN_MEMORY = int(os.environ.get(

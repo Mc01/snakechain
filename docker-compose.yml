@@ -11,17 +11,16 @@ services:
       - ./docker/entrypoint.sh:/entrypoint.sh
     command: /./entrypoint.sh
     environment:
-      - REDIS_HOST=cache
-      - REDIS_PORT=6379
-      - STORAGE_HOST=db
+      - BUFFER_HOST=buffer
+      - BUFFER_PORT=6379
     depends_on:
-      - db
-      - cache
+      - storage
+      - buffer
 
-  db:
-    container_name: snakechain_db
+  storage:
+    container_name: snakechain_storage
     image: couchbase
 
-  cache:
-    container_name: snakechain_cache
+  buffer:
+    container_name: snakechain_buffer
     image: redis

@@ -40,9 +40,9 @@ Following environment variables are optional and have defaults:
 
 ### Node
 
-### Cache
+### Buffer
 
-### Database
+### Storage
 
 ### Hashing
 
@@ -55,6 +55,6 @@ Following environment variables are optional and have defaults:
 Following packages used across project:
 - [CLI - typer](https://github.com/tiangolo/typer)
 - [gRPC - betterproto](https://github.com/danielgtaylor/python-betterproto)
-- [Cache - redis](https://github.com/andymccurdy/redis-py)
-- [Database - couchbase](https://github.com/couchbase/couchbase-python-client)
+- [Buffer - redis](https://github.com/andymccurdy/redis-py)
+- [Storage - couchbase](https://github.com/couchbase/couchbase-python-client)
 - [Formatter - black](https://github.com/psf/black)
