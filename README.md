@@ -8,15 +8,31 @@ Blockchain engine implementation in Python
 docker-compose up -d
 ```
 
+## Usage
+
+```
+docker-compose exec node ./cli.py $command
+```
+
+> Note: Where `$command` is one of following:
+> - add_element
+> - create_block
+> - get_block
+> - get_element
+> - get_statistics
+
 ## Design
 
-Node module is responsible for:
-- Read/write the blockchain from/to the disk
-- Accept new data elements to the buffer
-- Generate a new block from the buffer
-- Check blockchain integrity
+### CLI
 
-Rest module is responsible for:
-- Get the specific block
-- Get the specific element of a specific block
-- Get blockchain statistics (number of blocks, total size in bytes)
+### gRPC
+
+### Node
+
+### Redis
+
+### Couchbase
+
+### Hashing
+
+### Integrity

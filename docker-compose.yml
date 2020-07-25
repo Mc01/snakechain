@@ -5,10 +5,10 @@ services:
     container_name: snakechain_node
     build:
       context: .
-      dockerfile: ./docker/node/Dockerfile
+      dockerfile: docker/Dockerfile
     volumes:
       - ./snakechain:/app
-      - ./docker/node/entrypoint.sh:/entrypoint.sh
+      - ./docker/entrypoint.sh:/entrypoint.sh
     command: /./entrypoint.sh
     environment:
       - REDIS_HOST=cache
