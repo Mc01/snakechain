@@ -29,10 +29,21 @@ docker-compose exec node ./cli.py $command
 
 ### Node
 
-### Redis
+### Cache
 
-### Couchbase
+### Database
 
 ### Hashing
 
 ### Integrity
+
+### Formatter
+
+## Packages
+
+Following packages used across project:
+- [CLI - typer](https://github.com/tiangolo/typer)
+- [gRPC - betterproto](https://github.com/danielgtaylor/python-betterproto)
+- [Cache - redis](https://github.com/andymccurdy/redis-py)
+- [Database - couchbase](https://github.com/couchbase/couchbase-python-client)
+- [Formatter - black](https://github.com/psf/black)
