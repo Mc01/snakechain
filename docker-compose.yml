@@ -14,13 +14,13 @@ services:
       - BUFFER_HOST=buffer
       - BUFFER_PORT=6379
     depends_on:
-      - storage
       - buffer
-
-  storage:
-    container_name: snakechain_storage
-    image: couchbase
+      - storage
 
   buffer:
     container_name: snakechain_buffer
     image: redis
+
+  storage:
+    container_name: snakechain_storage
+    image: couchbase

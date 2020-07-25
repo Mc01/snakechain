@@ -34,6 +34,12 @@ Following environment variables are optional and have defaults:
 
 ## Design
 
+SnakeChain core elements are following:
+- CLI
+- Node
+- Buffer
+- Storage
+
 ### CLI
 
 ### gRPC
