@@ -9,6 +9,7 @@ services:
     volumes:
       - ./snakechain:/app
       - ./docker/node/entrypoint.sh:/entrypoint.sh
+      - ./docker/node/wait_for_storage.sh:/wait_for_storage.sh
     command: /./entrypoint.sh
     environment:
       - BUFFER_HOST=buffer
