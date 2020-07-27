@@ -1,8 +1,12 @@
-from typing import List, Optional
+from typing import List
 
 from .block import Block
 from .buffer import Buffer
-from .config import SPACER, NUMBER_OF_BLOCKS_IN_MEMORY
+from .config import (
+    SPACER,
+    NUMBER_OF_BLOCKS_IN_MEMORY,
+    GENESIS_HASH,
+)
 from .integrity import IntegrityCheck
 from .storage import Storage
 
@@ -20,21 +24,33 @@ class Blockchain:
             self.next_block_number = last_block.header.number + 1
         else:
             self.blocks: List[Block] = []
-            self.previous_block_hash = '0x0'
+            self.previous_block_hash = GENESIS_HASH
             self.next_block_number = 1
 
     def _integrity_check(self):
-        integrity_check: Optional[IntegrityCheck] = None
+        print('Starting integrity check', flush=True)
+        print(SPACER, flush=True)
+        integrity_check: IntegrityCheck = IntegrityCheck()
 
         for existing_block in self.storage.yield_blocks_from_storage():
-            if not integrity_check:
-                integrity_check = IntegrityCheck(
-                    genesis_block=existing_block,
-                )
-            else:
-                integrity_check.validate_block(
-                    latest_block=existing_block,
-                )
+            integrity_check.validate_block(
+                latest_block=existing_block,
+            )
+
+        validated_blocks = integrity_check.validated_count
+        total_blocks = self.storage.get_block_count()
+        print(
+            f'Validated blocks by integrity check: '
+            f'{validated_blocks}',
+            flush=True,
+        )
+        print(
+            f'Total blocks in storage: '
+            f'{total_blocks}',
+            flush=True,
+        )
+        print(SPACER, flush=True)
+        assert validated_blocks == total_blocks
 
     def append_element(self, element: str):
         self.buffer.add_body_element(
@@ -71,7 +87,7 @@ class Blockchain:
         # 1st block
         self.append_element(element='one')
         first_block = self.create_block()
-        first_json = first_block.to_json()
+        first_json = first_block.__dict__
 
         print(
             f'First block: {first_block}',
@@ -88,7 +104,7 @@ class Blockchain:
         self.append_element(element='three')
         self.append_element(element='four')
         second_block = self.create_block()
-        second_json = second_block.to_json()
+        second_json = second_block.__dict__
 
         print(
             f'Second block: {second_block}',
@@ -96,20 +112,6 @@ class Blockchain:
         )
         print(
             f'Second JSON: {second_json}',
-            flush=True,
-        )
-        print(SPACER, flush=True)
-
-        # 2nd block copy from 2nd block JSON
-        copy_block = Block.from_json(second_json)
-        copy_json = copy_block.to_json()
-
-        print(
-            f'Copy block: {copy_block}',
-            flush=True,
-        )
-        print(
-            f'Copy JSON: {copy_json}',
             flush=True,
         )
         print(SPACER, flush=True)

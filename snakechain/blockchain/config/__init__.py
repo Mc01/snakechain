@@ -8,6 +8,16 @@ BUFFER_PORT = os.environ.get('BUFFER_PORT')
 STORAGE_HOST = os.environ.get('STORAGE_HOST')
 STORAGE_USER = os.environ.get('STORAGE_USER')
 STORAGE_PASSWORD = os.environ.get('STORAGE_PASSWORD')
+STORAGE_BUCKET = os.environ.get(
+    'STORAGE_BUCKET',
+    default='default',
+)
+STORAGE_BLOCK_COLLECTION = 'blocks'
+STORAGE_CONFIG_COLLECTION = 'config'
+STORAGE_LATEST_KEY = 'latest'
+
+# genesis block hash
+GENESIS_HASH = '0x0'
 
 # blockchain memory capacity
 NUMBER_OF_BLOCKS_IN_MEMORY = int(os.environ.get(

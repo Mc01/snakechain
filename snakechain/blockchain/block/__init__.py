@@ -52,11 +52,3 @@ class Block:
             f'{self._body} '
             f'Hash: {self.hash}'
         )
-
-    def to_json(self) -> str:
-        return json.dumps(self.__dict__)
-
-    @classmethod
-    def from_json(cls, data: str):
-        args = json.loads(data)
-        return Block(**args)

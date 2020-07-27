@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from ..exceptions import IntegrityError
 
@@ -9,14 +9,16 @@ if TYPE_CHECKING:
 
 
 class IntegrityCheck:
-    def __init__(self, genesis_block: Block):
-        self.current_block: Block = genesis_block
+    def __init__(self):
+        self.current_block: Optional[Block] = None
+        self.validated_count = 0
 
     def validate_block(self, latest_block: Block):
-        if self.current_block.hash != latest_block.header.previous_hash:
+        if self.current_block and self.current_block.hash != latest_block.header.previous_hash:
             raise IntegrityError(
                 previous_block=self.current_block,
                 current_block=latest_block,
             )
 
         self.current_block = latest_block
+        self.validated_count += 1
