@@ -58,15 +58,23 @@ class Storage:
         self.config: CBCollection = self.bucket.collection(STORAGE_CONFIG_COLLECTION)
 
     def _init_bucket(self, storage_management, max_retries=3) -> bool:
+        """
+        Needed because sometimes buckets even after reporting healthy status
+        Are throwing ProtocolException during opening connection after creation
+        """
         for i in range(stop=max_retries):
             try:
+                # wait for status healthy
                 storage_management.wait_ready(
                     name=STORAGE_BUCKET,
                 )
+                # open main bucket for storage
                 self.bucket: Bucket = self.cluster.bucket(
                     name=STORAGE_BUCKET,
                 )
+                # index manager
                 index_management = self.cluster.query_indexes()
+                # create primary index for main bucket
                 index_management.create_primary_index(STORAGE_BUCKET)
                 return True
             except ProtocolException:
