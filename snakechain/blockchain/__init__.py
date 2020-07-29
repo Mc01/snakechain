@@ -119,7 +119,7 @@ class Blockchain:
     def get_statistics(self) -> dict:
         return {
             'number of blocks': self.next_block_number - 1,
-            'total size in bytes': self.storage.get_data_size(),
+            'total size in bytes': self.storage.get_data_size() or 0,
         }
 
     # noinspection PyMethodMayBeStatic
