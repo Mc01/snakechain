@@ -62,7 +62,7 @@ class Storage:
         Needed because sometimes buckets even after reporting healthy status
         Are throwing ProtocolException during opening connection after creation
         """
-        for i in range(stop=max_retries):
+        for i in range(max_retries):
             try:
                 # wait for status healthy
                 storage_management.wait_ready(
