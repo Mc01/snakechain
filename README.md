@@ -52,6 +52,9 @@ SnakeChain core elements are following:
 - Make use of black formatter
 - Introduce gRPC between CLI and Node
 - Use AsyncIO for Node and integrate with other components
+- Make more intelligent hashing (introduce Merkle Trees for example)
+- Add more crypto features (simple consensus like pBFT for example)
+- Add support for P2P broadcasting
 
 ## Packages
 
