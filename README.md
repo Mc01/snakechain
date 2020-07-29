@@ -24,13 +24,14 @@ docker-compose exec node ./cli.py $command
 ## Environment
 
 Following environment variables are mandatory (defined in `docker-compose.yml`):
-- `REDIS_HOST`
-- `REDIS_PORT`
+- `BUFFER_HOST`
+- `BUFFER_PORT`
 - `STORAGE_HOST`
 - `STORAGE_USER`
 - `STORAGE_PASSWORD`
 
 Following environment variables are optional and have defaults:
+- `STORAGE_BUCKET` (default value: `default`)
 - `NUMBER_OF_BLOCKS_IN_MEMORY` (default value: `10`)
 - `SPACER` (default value: `------*------*------*------*------*------`)
 
@@ -38,9 +39,13 @@ Following environment variables are optional and have defaults:
 
 SnakeChain core elements are following:
 - CLI
+> Executes commands on blockchain node
 - Node
+> Listens for CLI commands 
 - Buffer
+> Keeps recent blocks and next block elements in RAM
 - Storage
+> Stores all blocks on Disk
 
 ## TODO checklist
 - Add unit tests

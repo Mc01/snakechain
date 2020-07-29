@@ -1,10 +1,10 @@
 import os
 
-# redis for buffer
+# redis as buffer
 BUFFER_HOST = os.environ.get('BUFFER_HOST')
 BUFFER_PORT = os.environ.get('BUFFER_PORT')
 
-# couchbase for storage
+# couchbase as storage
 STORAGE_HOST = os.environ.get('STORAGE_HOST')
 STORAGE_USER = os.environ.get('STORAGE_USER')
 STORAGE_PASSWORD = os.environ.get('STORAGE_PASSWORD')
