@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Generator, Optional
 from couchbase.bucket import Bucket
 from couchbase.cluster import Cluster, ClusterOptions, PasswordAuthenticator
 from couchbase.collection import CBCollection
-from couchbase.exceptions import BucketNotFoundException
+from couchbase.exceptions import BucketNotFoundException, ProtocolException
 from couchbase.management.admin import Admin
 
 from ..config import (
@@ -18,6 +18,7 @@ from ..config import (
     STORAGE_CONFIG_COLLECTION,
     STORAGE_BLOCK_COLLECTION,
 )
+from ..exceptions import InitError
 
 if TYPE_CHECKING:
     from ..block import Block
@@ -49,17 +50,28 @@ class Storage:
                 name=STORAGE_BUCKET,
                 ram_quota=256,
             )
-            storage_management.wait_ready(
-                name=STORAGE_BUCKET,
-            )
-            self.bucket: Bucket = self.cluster.bucket(
-                name=STORAGE_BUCKET,
-            )
-            index_management = self.cluster.query_indexes()
-            index_management.create_primary_index(STORAGE_BUCKET)
+            initialized = self._init_bucket(storage_management)
+            if not initialized:
+                raise InitError
 
         self.blocks: CBCollection = self.bucket.collection(STORAGE_BLOCK_COLLECTION)
         self.config: CBCollection = self.bucket.collection(STORAGE_CONFIG_COLLECTION)
+
+    def _init_bucket(self, storage_management, max_retries=3) -> bool:
+        for i in range(stop=max_retries):
+            try:
+                storage_management.wait_ready(
+                    name=STORAGE_BUCKET,
+                )
+                self.bucket: Bucket = self.cluster.bucket(
+                    name=STORAGE_BUCKET,
+                )
+                index_management = self.cluster.query_indexes()
+                index_management.create_primary_index(STORAGE_BUCKET)
+                return True
+            except ProtocolException:
+                continue
+        return False
 
     def save_block_to_storage(self, block: Block):
         """

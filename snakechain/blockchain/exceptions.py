@@ -6,6 +6,12 @@ if TYPE_CHECKING:
     from .block import Block
 
 
+class InitError(Exception):
+    """
+    Exception thrown during storage bucket init
+    """
+
+
 class IntegrityError(Exception):
     """
     Exception thrown during integrity check of existing blocks
