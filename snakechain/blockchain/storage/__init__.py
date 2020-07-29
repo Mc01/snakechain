@@ -57,7 +57,6 @@ class Storage:
             )
             index_management = self.cluster.query_indexes()
             index_management.create_primary_index(STORAGE_BUCKET)
-            index_management.create_index(STORAGE_BUCKET, 'previous_hash', fields=['previous_hash'])
 
         self.blocks: CBCollection = self.bucket.collection(STORAGE_BLOCK_COLLECTION)
         self.config: CBCollection = self.bucket.collection(STORAGE_CONFIG_COLLECTION)
@@ -87,18 +86,18 @@ class Storage:
                 key=STORAGE_LATEST_KEY,
             ).content
             return self.get_block_from_storage(
-                key=latest_hash,
+                block_hash=latest_hash,
             )
         else:
             return None
 
-    def get_block_from_storage(self, key: str) -> Optional[Block]:
+    def get_block_from_storage(self, block_hash: str) -> Optional[Block]:
         from ..block import Block
         if self.blocks.exists(
-                key=key,
+                key=block_hash,
         ).exists:
             block = self.blocks.get(
-                key=key,
+                key=block_hash,
             ).content
             return Block(**block)
         else:
@@ -141,3 +140,15 @@ class Storage:
         assert result.meta['status'] == 'success'
         response: dict = next(iter(result))
         return response.get(block_count)
+
+    def get_data_size(self) -> int:
+        """
+        Returns number of bytes used by blocks
+        """
+        data_size = 'DATA_SIZE'
+        result = self.bucket.query(
+            f'SELECT SUM(ENCODED_SIZE(default)) AS {data_size} FROM default'
+        )
+        assert result.meta['status'] == 'success'
+        response: dict = next(iter(result))
+        return response.get(data_size)

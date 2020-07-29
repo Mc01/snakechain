@@ -1,8 +1,8 @@
-import json
 from typing import List
 
 from .body import Body
 from .header import Header
+from ..config import GENESIS_HASH
 from ..utils import sha256, block_bytes
 
 
@@ -11,7 +11,7 @@ class Block:
             self,
             number: int,
             previous_hash: str,
-            data: List[str] = None,
+            data: List[str],
     ):
         self._header: Header = Header(
             number=number,
@@ -52,3 +52,16 @@ class Block:
             f'{self._body} '
             f'Hash: {self.hash}'
         )
+
+
+class GenesisBlock(Block):
+    def __init__(self):
+        super().__init__(
+            number=0,
+            previous_hash=GENESIS_HASH,
+            data=[],
+        )
+
+    @property
+    def hash(self) -> str:
+        return GENESIS_HASH

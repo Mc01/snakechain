@@ -14,7 +14,13 @@ class IntegrityCheck:
         self.validated_count = 0
 
     def validate_block(self, latest_block: Block):
-        if self.current_block and self.current_block.hash != latest_block.header.previous_hash:
+        """
+        Validates blocks by comparing their hash connections
+        """
+        if (
+                self.current_block and
+                self.current_block.hash != latest_block.header.previous_hash
+        ):
             raise IntegrityError(
                 previous_block=self.current_block,
                 current_block=latest_block,
