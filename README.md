@@ -54,7 +54,7 @@ SnakeChain core elements are following:
 - Use AsyncIO for Node and integrate with other components
 - Make more intelligent hashing (introduce Merkle Trees for example)
 - Add more crypto features (simple consensus like pBFT for example)
-- Add support for P2P broadcasting
+- Add support for P2P broadcasting (protocol like IBC/ICS for example)
 
 ## Packages
 
