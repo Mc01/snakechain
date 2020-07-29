@@ -6,6 +6,7 @@ PASSWORD=${STORAGE_PASSWORD}
 
 /entrypoint.sh couchbase-server &
 
+# TODO: Should be replaced with successful curl on http://127.0.0.1:8091
 sleep 15
 
 curl -v -X POST http://127.0.0.1:8091/pools/default -d memoryQuota=512 -d indexMemoryQuota=512
