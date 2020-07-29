@@ -42,21 +42,11 @@ SnakeChain core elements are following:
 - Buffer
 - Storage
 
-### CLI
-
-### gRPC
-
-### Node
-
-### Buffer
-
-### Storage
-
-### Hashing
-
-### Integrity
-
-### Formatter
+## TODO checklist
+- Add unit tests
+- Make use of black formatter
+- Introduce gRPC between CLI and Node
+- Use AsyncIO for Node and integrate with other components
 
 ## Packages
 
