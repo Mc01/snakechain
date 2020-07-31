@@ -8,17 +8,13 @@ from ..utils import sha256, block_bytes
 
 class Block:
     def __init__(
-            self,
-            number: int,
-            previous_hash: str,
-            data: List[str],
+        self, number: int, previous_hash: str, data: List[str],
     ):
         self._header: Header = Header(
-            number=number,
-            previous_hash=previous_hash,
+            number=number, previous_hash=previous_hash,
         )
         self._body: Body = Body(data=tuple(data))
-        self._hash: str = ''
+        self._hash: str = ""
 
     @property
     def header(self) -> Header:
@@ -33,9 +29,7 @@ class Block:
         if self._hash:
             return self._hash
         else:
-            self._hash = sha256(block_bytes(
-                block=self,
-            ))
+            self._hash = sha256(block_bytes(block=self,))
             return self._hash
 
     @property
@@ -46,20 +40,13 @@ class Block:
         }
 
     def __str__(self) -> str:
-        return (
-            f'Block - '
-            f'{self._header} '
-            f'{self._body} '
-            f'Hash: {self.hash}'
-        )
+        return f"Block - " f"{self._header} " f"{self._body} " f"Hash: {self.hash}"
 
 
 class GenesisBlock(Block):
     def __init__(self):
         super().__init__(
-            number=0,
-            previous_hash=GENESIS_HASH,
-            data=[],
+            number=0, previous_hash=GENESIS_HASH, data=[],
         )
 
     @property

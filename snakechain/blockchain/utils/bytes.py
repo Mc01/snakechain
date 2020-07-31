@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from ..block import Block
 
 
-DEFAULT_ENCODING = 'utf-8'
+DEFAULT_ENCODING = "utf-8"
 
 
 def block_bytes(block: Block) -> bytes:

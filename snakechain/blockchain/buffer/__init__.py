@@ -8,14 +8,11 @@ from ..config import BUFFER_HOST, BUFFER_PORT
 
 class Buffer:
     def __init__(self):
-        self.redis = Redis(
-            host=BUFFER_HOST,
-            port=BUFFER_PORT,
-        )
+        self.redis = Redis(host=BUFFER_HOST, port=BUFFER_PORT,)
 
     @staticmethod
     def _get_block_key(number):
-        return f'b{number}'
+        return f"b{number}"
 
     def _get_value(self, key) -> Optional:
         raw_data = self.redis.get(name=key)

@@ -18,12 +18,11 @@ class IntegrityCheck:
         Validates blocks by comparing their hash connections
         """
         if (
-                self.current_block and
-                self.current_block.hash != latest_block.header.previous_hash
+            self.current_block
+            and self.current_block.hash != latest_block.header.previous_hash
         ):
             raise IntegrityError(
-                previous_block=self.current_block,
-                current_block=latest_block,
+                previous_block=self.current_block, current_block=latest_block,
             )
 
         self.current_block = latest_block

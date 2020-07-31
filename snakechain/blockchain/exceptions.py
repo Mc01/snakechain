@@ -16,12 +16,13 @@ class IntegrityError(Exception):
     """
     Exception thrown during integrity check of existing blocks
     """
+
     def __init__(self, previous_block: Block, current_block: Block):
         super(IntegrityError, self).__init__(
-            f'Inconsistent integrity check between '
-            f'previous block {previous_block.header.number} and'
-            f'current block {current_block.header.number}. '
-            f'Hash of previous block {previous_block.hash} '
-            f'does not match hash provided in current block '
-            f'{current_block.hash}.'
+            f"Inconsistent integrity check between "
+            f"previous block {previous_block.header.number} and"
+            f"current block {current_block.header.number}. "
+            f"Hash of previous block {previous_block.hash} "
+            f"does not match hash provided in current block "
+            f"{current_block.hash}."
         )

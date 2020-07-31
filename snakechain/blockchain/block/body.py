@@ -2,6 +2,7 @@ class Body:
     """
     Body should have immutable list of string elements
     """
+
     def __init__(self, data: tuple):
         self._data = data
 
@@ -12,10 +13,8 @@ class Body:
     @property
     def __dict__(self) -> dict:
         return {
-            'data': self._data,
+            "data": self._data,
         }
 
     def __str__(self) -> str:
-        return (
-            f'Body: {self._data}'
-        )
+        return f"Body: {self._data}"

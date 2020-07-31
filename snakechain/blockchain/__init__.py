@@ -33,7 +33,7 @@ class Blockchain:
             self.next_block_number = 1
 
     def _integrity_check(self):
-        print('Starting integrity check', flush=True)
+        print("Starting integrity check", flush=True)
         print(SPACER, flush=True)
 
         # Create Integrity Check object
@@ -42,22 +42,16 @@ class Blockchain:
         # Iterate blocks from Storage memory efficiently
         # And validate each block by Integrity Check
         for existing_block in self.storage.yield_blocks_from_storage():
-            integrity_check.validate_block(
-                latest_block=existing_block,
-            )
+            integrity_check.validate_block(latest_block=existing_block,)
 
         # Validate that all blocks are fitting Integrity Check validation
         validated_blocks = integrity_check.validated_count
         total_blocks = self.storage.get_block_count()
         print(
-            f'Validated blocks by integrity check: '
-            f'{validated_blocks}',
-            flush=True,
+            f"Validated blocks by integrity check: " f"{validated_blocks}", flush=True,
         )
         print(
-            f'Total blocks in storage: '
-            f'{total_blocks}',
-            flush=True,
+            f"Total blocks in storage: " f"{total_blocks}", flush=True,
         )
         print(SPACER, flush=True)
         assert validated_blocks == total_blocks
@@ -67,8 +61,7 @@ class Blockchain:
         Add element for next block body to Buffer
         """
         self.buffer.add_body_element(
-            block_number=self.next_block_number,
-            body_element=element,
+            block_number=self.next_block_number, body_element=element,
         )
 
     def _restrict_memory(self):
@@ -107,9 +100,7 @@ class Blockchain:
             return GenesisBlock()
 
         # Search within last blocks in Buffer
-        hash_to_block_map = {
-            b.hash: b for b in self.blocks
-        }
+        hash_to_block_map = {b.hash: b for b in self.blocks}
         if block_hash in hash_to_block_map.keys():
             return hash_to_block_map[block_hash]
 
@@ -118,14 +109,14 @@ class Blockchain:
 
     def get_statistics(self) -> dict:
         return {
-            'number of blocks': self.next_block_number - 1,
-            'total size in bytes': self.storage.get_data_size() or 0,
+            "number of blocks": self.next_block_number - 1,
+            "total size in bytes": self.storage.get_data_size() or 0,
         }
 
     # noinspection PyMethodMayBeStatic
     def start_node(self):
-        print('Starting blockchain node', flush=True)
+        print("Starting blockchain node", flush=True)
         print(SPACER, flush=True)
-        print('Listening for new blocks', flush=True)
+        print("Listening for new blocks", flush=True)
         while True:
             continue

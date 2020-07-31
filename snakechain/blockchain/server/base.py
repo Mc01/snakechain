@@ -9,14 +9,13 @@ from .typing import InterfaceServable, InterfaceClosable
 
 class NodeBase(abc.ABC, InterfaceServable):
     @abc.abstractmethod
-    async def hello(self, stream: '') -> None:
+    async def hello(self, stream: "") -> None:
         pass
 
     # noinspection PyMethodMayBeStatic
     def __mapping__(self) -> Dict[str, Handler]:
         return {
-            '': Handler(
-            ),
+            "": Handler(),
         }
 
 

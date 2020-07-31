@@ -8,11 +8,8 @@ services:
       dockerfile: docker/node/Dockerfile
     volumes:
       - ./snakechain:/app
-      - ./docker/node/entrypoint.sh:/entrypoint.sh
-      - ./docker/node/compile_proto.sh:/compile_proto.sh
-      - ./docker/node/formatter.sh:/formatter.sh
-      - ./docker/node/wait_for_storage.sh:/wait_for_storage.sh
-    command: /./entrypoint.sh
+      - ./docker/node/scripts:/scripts
+    command: /scripts/./entrypoint.sh
     environment:
       - BUFFER_HOST=buffer
       - BUFFER_PORT=6379

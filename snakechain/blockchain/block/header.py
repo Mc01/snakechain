@@ -4,6 +4,7 @@ class Header:
     - block number
     - hash of previous block
     """
+
     def __init__(self, number: int, previous_hash: str):
         self._number = number
         self._previous_hash = previous_hash
@@ -19,12 +20,11 @@ class Header:
     @property
     def __dict__(self) -> dict:
         return {
-            'number': self._number,
-            'previous_hash': self._previous_hash,
+            "number": self._number,
+            "previous_hash": self._previous_hash,
         }
 
     def __str__(self) -> str:
         return (
-            f'Number: {self._number} '
-            f'Hash of previous block: {self._previous_hash}'
+            f"Number: {self._number} " f"Hash of previous block: {self._previous_hash}"
         )
