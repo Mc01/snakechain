@@ -10,8 +10,10 @@ ipython = "^7.16.1"
 typer = "^0.3.1"
 redis = "^3.5.3"
 black = "^19.10b0"
-betterproto = {version = "^1.2.5", extras = ["compiler"]}
 couchbase = "^3.0.3"
+grpclib = "^0.3.2"
+protobuf = "^3.12.4"
+betterproto = {extras = ["compiler"], version = "^1.2.5"}
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

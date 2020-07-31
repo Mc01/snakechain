@@ -9,6 +9,8 @@ services:
     volumes:
       - ./snakechain:/app
       - ./docker/node/entrypoint.sh:/entrypoint.sh
+      - ./docker/node/compile_proto.sh:/compile_proto.sh
+      - ./docker/node/formatter.sh:/formatter.sh
       - ./docker/node/wait_for_storage.sh:/wait_for_storage.sh
     command: /./entrypoint.sh
     environment:
