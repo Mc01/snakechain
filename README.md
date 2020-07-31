@@ -49,7 +49,6 @@ SnakeChain core elements are following:
 
 ## TODO checklist
 - Add unit tests
-- Make use of black formatter
 - Introduce gRPC between CLI and Node
 - Use AsyncIO for Node and integrate with other components
 - Make more intelligent hashing (introduce Merkle Trees for example)
