@@ -74,6 +74,10 @@ class Storage:
                 index_management = self.cluster.query_indexes()
                 # create primary index for main bucket
                 index_management.create_primary_index(STORAGE_BUCKET)
+
+                print(
+                    f"Bucket ready. Continuing...", flush=True,
+                )
                 return True
             except ProtocolException:
                 print(
