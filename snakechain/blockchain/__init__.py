@@ -48,10 +48,10 @@ class Blockchain:
         validated_blocks = integrity_check.validated_count
         total_blocks = self.storage.get_block_count()
         print(
-            f"Validated blocks by integrity check: " f"{validated_blocks}", flush=True,
+            f"Validated blocks by integrity check: {validated_blocks}", flush=True,
         )
         print(
-            f"Total blocks in storage: " f"{total_blocks}", flush=True,
+            f"Total blocks in storage: {total_blocks}", flush=True,
         )
         print(SPACER, flush=True)
         assert validated_blocks == total_blocks

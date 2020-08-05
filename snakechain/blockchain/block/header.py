@@ -25,6 +25,4 @@ class Header:
         }
 
     def __str__(self) -> str:
-        return (
-            f"Number: {self._number} " f"Hash of previous block: {self._previous_hash}"
-        )
+        return f"Number: {self._number} Hash of previous block: {self._previous_hash}"

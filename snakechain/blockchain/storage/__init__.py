@@ -18,6 +18,8 @@ from ..config import (
     GENESIS_HASH,
     STORAGE_CONFIG_COLLECTION,
     STORAGE_BLOCK_COLLECTION,
+    STORAGE_BUCKET_CREATION_MAX_RETRIES,
+    STORAGE_BUCKET_CREATION_DELAY,
 )
 from ..exceptions import InitError
 
@@ -39,6 +41,9 @@ class Storage:
         try:
             self.bucket = self.cluster.bucket(name=STORAGE_BUCKET,)
         except BucketNotFoundException:
+            print(
+                f"Bucket not found. Attempting to create new one.", flush=True,
+            )
             storage_management = Admin(
                 username=STORAGE_USER, password=STORAGE_PASSWORD, host=STORAGE_HOST,
             )
@@ -52,7 +57,9 @@ class Storage:
         self.blocks: CBCollection = self.bucket.collection(STORAGE_BLOCK_COLLECTION)
         self.config: CBCollection = self.bucket.collection(STORAGE_CONFIG_COLLECTION)
 
-    def _init_bucket(self, storage_management, max_retries=3) -> bool:
+    def _init_bucket(
+        self, storage_management, max_retries=STORAGE_BUCKET_CREATION_MAX_RETRIES
+    ) -> bool:
         """
         Needed because sometimes buckets even after reporting healthy status
         Are throwing ProtocolException during opening connection after creation
@@ -69,7 +76,10 @@ class Storage:
                 index_management.create_primary_index(STORAGE_BUCKET)
                 return True
             except ProtocolException:
-                sleep(1)
+                print(
+                    f"Bucket not yet ready. Attempting retry no {i + 1}.", flush=True,
+                )
+                sleep(STORAGE_BUCKET_CREATION_DELAY)
                 continue
         return False
 

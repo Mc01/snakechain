@@ -40,7 +40,7 @@ class Block:
         }
 
     def __str__(self) -> str:
-        return f"Block - " f"{self._header} " f"{self._body} " f"Hash: {self.hash}"
+        return f"Block - {self._header} {self._body} Hash: {self.hash}"
 
 
 class GenesisBlock(Block):
