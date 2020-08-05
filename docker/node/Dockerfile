@@ -1,5 +1,6 @@
 FROM python
 
+RUN apt-get update && apt-get install -y libprotobuf-dev protobuf-compiler
 RUN pip install --upgrade pip
 RUN pip install poetry
 

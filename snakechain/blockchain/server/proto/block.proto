@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package block;
+
+message CreateBlockRequest {}
+
+message CreateBlockResponse {
+  string hash = 1;
+}
+
+message GetBlockRequest {
+  string hash = 1;
+}
+
+message GetBlockResponse {
+  string hash = 1;
+  int32 number = 2;
+  string previous = 3;
+  repeated string elements = 4;
+}
+
+service BlockService {
+  rpc CreateBlock (CreateBlockRequest) returns (CreateBlockResponse) {};
+  rpc GetBlock (GetBlockRequest) returns (GetBlockResponse) {};
+}

@@ -1,2 +1,5 @@
+.DS_Store
 .idea
 __pycache__
+snakechain/blockchain/server/proto/python/
+!snakechain/blockchain/server/proto/python/__init__.py

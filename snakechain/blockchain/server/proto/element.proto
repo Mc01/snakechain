@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package append;
+
+message AppendElementRequest {
+  string element = 1;
+}
+
+message AppendElementResponse {
+  bool result = 1;
+}
+
+message GetElementRequest {
+  string hash = 1;
+  int32 id = 2;
+}
+
+message GetElementResponse {
+  string element = 1;
+}
+
+service ElementService {
+  rpc AppendElement (AppendElementRequest) returns (AppendElementResponse) {};
+  rpc GetElement (GetElementRequest) returns (GetElementResponse) {};
+}

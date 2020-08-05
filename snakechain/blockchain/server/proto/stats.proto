@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package stats;
+
+message GetStatsRequest {}
+
+message GetStatsResponse {
+  int32 blocks = 1;
+  int32 total = 2;
+}
+
+service StatsService {
+  rpc GetStats (GetStatsRequest) returns (GetStatsResponse) {};
+}

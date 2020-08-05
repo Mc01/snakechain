@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from time import sleep
 from typing import TYPE_CHECKING, Generator, Optional
 
 from couchbase.bucket import Bucket
@@ -68,6 +69,7 @@ class Storage:
                 index_management.create_primary_index(STORAGE_BUCKET)
                 return True
             except ProtocolException:
+                sleep(1)
                 continue
         return False
 
